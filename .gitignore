@@ -1,0 +1,9 @@
+# 依赖目录（本项目为原生 Node.js，无第三方依赖，保留此项以防后续安装）
+node_modules/
+
+# 环境变量与密钥
+.env
+.env.*
+
+# 运行时生成的问答记录
+data/records.jsonl

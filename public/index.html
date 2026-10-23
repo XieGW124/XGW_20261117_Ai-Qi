@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI 答疑助手</title>
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <div class="page">
+    <!-- 顶部品牌栏 -->
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">答</span>
+        <span class="brand-text">
+          <strong>AI 答疑助手</strong>
+          <small>Course Q&amp;A</small>
+        </span>
+      </div>
+      <span id="mode-badge" class="badge badge-demo" hidden>检测中…</span>
+    </header>
+
+    <!-- 首屏介绍 -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="eyebrow-dot"></span>COURSE Q&amp;A ASSISTANT</p>
+        <h1>把课程问题，<br /><span class="accent">问清楚。</span></h1>
+        <p class="hero-desc">先检索课程资料，再由大模型组织回答。每次问答都会自动留档，随时回看。</p>
+        <div class="hero-tags">
+          <span>检索增强</span>
+          <span>中文作答</span>
+          <span>自动留档</span>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <div class="orb"></div>
+        <div class="orbit orbit-a"></div>
+        <div class="orbit orbit-b"></div>
+        <span class="spark spark-a"></span>
+        <span class="spark spark-b"></span>
+      </div>
+    </section>
+
+    <main class="layout">
+      <!-- 提问与回答 -->
+      <section class="card ask-card">
+        <form id="ask-form" class="ask-form">
+          <div class="field-head">
+            <label for="question" class="field-label">你的问题</label>
+            <span id="char-count" class="char-count">0 / 500</span>
+          </div>
+          <textarea
+            id="question"
+            name="question"
+            rows="4"
+            maxlength="500"
+            placeholder="例如：什么是闭包？Node.js 如何读取环境变量？"
+            required
+          ></textarea>
+          <div class="form-actions">
+            <span class="hint">支持中文提问，最多 500 字；按 Ctrl + Enter 可快速提交</span>
+            <button type="submit" id="submit-btn" class="primary-btn">
+              <span class="btn-label">提问</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </form>
+
+        <!-- 示例问题，点击后直接提问 -->
+        <div id="examples" class="examples">
+          <span class="examples-label">试着问</span>
+          <button type="button" class="example-chip" data-question="什么是闭包？">什么是闭包？</button>
+          <button type="button" class="example-chip" data-question="Promise 和 async/await 有什么区别？">Promise 和 async/await 有什么区别？</button>
+          <button type="button" class="example-chip" data-question="Node.js 如何读取环境变量？">Node.js 如何读取环境变量？</button>
+        </div>
+
+        <div id="status" class="status" role="status" aria-live="polite" hidden></div>
+
+        <!-- 请求中的骨架屏 -->
+        <div id="loading" class="loading" aria-live="polite" hidden>
+          <div class="loading-head">
+            <span class="loading-dot" aria-hidden="true"></span>
+            <span>正在检索课程资料并请求大模型…</span>
+          </div>
+          <div class="skeleton skeleton-1"></div>
+          <div class="skeleton skeleton-2"></div>
+          <div class="skeleton skeleton-3"></div>
+        </div>
+
+        <article id="answer" class="answer" hidden>
+          <div class="answer-head">
+            <h2><span class="answer-mark" aria-hidden="true"></span>回答</h2>
+            <div class="answer-meta">
+              <span id="answer-time" class="answer-time"></span>
+              <span id="answer-mode" class="badge"></span>
+            </div>
+          </div>
+          <div id="answer-content" class="answer-content"></div>
+          <div id="sources" class="sources"></div>
+        </article>
+
+        <p class="tips">提示：本工具的回答优先依据课程资料，资料不足时会补充通用知识并加以说明。</p>
+      </section>
+
+      <!-- 最近提问 -->
+      <aside class="card history-card">
+        <div class="history-head">
+          <div>
+            <h2>最近提问</h2>
+            <p class="history-sub">保留最近 8 条问答</p>
+          </div>
+          <button type="button" id="refresh-btn" class="ghost-btn">刷新</button>
+        </div>
+        <ul id="history" class="history"></ul>
+        <p id="history-empty" class="empty">还没有问答记录<br />先提一个问题吧</p>
+      </aside>
+    </main>
+
+    <footer class="footer">AI 答疑助手 · 原生 Node.js 实现 · 无第三方依赖</footer>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
