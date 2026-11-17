@@ -7,3 +7,7 @@ node_modules/
 
 # 运行时生成的问答记录
 data/records.jsonl
+
+# Playwright 测试产物
+test-results/
+playwright-report/
